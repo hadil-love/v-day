@@ -35,8 +35,21 @@ let runawayEnabled = false
 const catGif = document.getElementById('cat-gif')
 const yesBtn = document.getElementById('yes-btn')
 const noBtn = document.getElementById('no-btn')
+const music = document.getElementById('bg-music')
 
-// 💛 زر نعم
+/* 🎵 تشغيل الصوت بشكل صحيح */
+music.volume = 0.3
+
+music.play().then(() => {
+    music.muted = false
+}).catch(() => {
+    document.addEventListener('click', () => {
+        music.muted = false
+        music.play().catch(() => {})
+    }, { once: true })
+})
+
+/* 💛 زر نعم */
 function handleYesClick() {
 
     if (!runawayEnabled) {
@@ -46,18 +59,17 @@ function handleYesClick() {
         return
     }
 
-    // ✨ النهاية الجديدة باسمك
-    document.querySelector("h1").innerText = "ددوشي كنت عارفة رح تقول نعم 🥹"
+    document.querySelector("h1").innerText = "احلى رشرش في العالم 🥹💕 "
 
     yesBtn.style.display = "none"
     noBtn.style.display = "none"
 
     catGif.src = "https://media1.tenor.com/m/4FQ2yZ6mQxQAAAAC/cute-cat.gif"
 
-    showTeaseMessage("💛")
+    showTeaseMessage("🫂💗و احلى بابوني")
 }
 
-// ❌ زر لا
+/* ❌ زر لا */
 function handleNoClick() {
 
     noClickCount++
@@ -81,7 +93,7 @@ function handleNoClick() {
     }
 }
 
-// 🐱 تغيير الصورة
+/* 🐱 تغيير الصور */
 function swapGif(src) {
     catGif.style.opacity = '0'
     setTimeout(() => {
@@ -90,7 +102,7 @@ function swapGif(src) {
     }, 200)
 }
 
-// 😂 هروب زر لا
+/* 😂 هروب زر لا */
 function enableRunaway() {
     noBtn.addEventListener('mouseover', runAway)
     noBtn.addEventListener('touchstart', runAway, { passive: true })
@@ -113,7 +125,7 @@ function runAway() {
     noBtn.style.zIndex = '999'
 }
 
-// 💬 رسائل صغيرة
+/* 💬 رسائل صغيرة */
 function showTeaseMessage(msg) {
     let toast = document.getElementById('tease-toast')
     toast.textContent = msg
