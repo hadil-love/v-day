@@ -22,8 +22,8 @@ const noMessages = [
 ]
 
 const yesTeasePokes = [
-    "جرّب تضغط لا أولًا… أشعر أنك تريد فعل ذلك 😏",
-    "هيا… اضغط لا مرة واحدة 👀",
+    "جرّب تضغط لا أولًا… 😏",
+    "هيا اضغط لا مرة 👀",
     "أنت تفوّت الكثير 😈",
     "اضغط لا… أتحداك 😏"
 ]
@@ -50,6 +50,7 @@ music.play().then(() => {
     }, { once: true })
 })
 
+// زر الموسيقى
 function toggleMusic() {
     if (musicPlaying) {
         music.pause()
@@ -72,21 +73,11 @@ function handleYesClick() {
         return
     }
 
-    // النهاية 💛
-    document.querySelector("h1").innerText = "عععععع خاااين قااال نعم"
+    document.querySelector("h1").innerText = "كنت أعرف أنك ستقول نعم… 💛"
     yesBtn.style.display = "none"
     noBtn.style.display = "none"
 
     swapGif("https://media.tenor.com/4FQ2yZ6mQxQAAAAj/cute-cat.gif")
-}
-
-// رسالة صغيرة
-function showTeaseMessage(msg) {
-    let toast = document.getElementById('tease-toast')
-    toast.textContent = msg
-    toast.classList.add('show')
-    clearTimeout(toast._timer)
-    toast._timer = setTimeout(() => toast.classList.remove('show'), 2500)
 }
 
 // زر لا
@@ -102,11 +93,6 @@ function handleNoClick() {
     const padY = Math.min(18 + noClickCount * 5, 60)
     const padX = Math.min(45 + noClickCount * 10, 120)
     yesBtn.style.padding = `${padY}px ${padX}px`
-
-    if (noClickCount >= 2) {
-        const noSize = parseFloat(window.getComputedStyle(noBtn).fontSize)
-        noBtn.style.fontSize = `${Math.max(noSize * 0.85, 10)}px`
-    }
 
     const gifIndex = Math.min(noClickCount, gifStages.length - 1)
     swapGif(gifStages[gifIndex])
@@ -136,6 +122,7 @@ function runAway() {
     const margin = 20
     const btnW = noBtn.offsetWidth
     const btnH = noBtn.offsetHeight
+
     const maxX = window.innerWidth - btnW - margin
     const maxY = window.innerHeight - btnH - margin
 
@@ -147,3 +134,12 @@ function runAway() {
     noBtn.style.top = `${randomY}px`
     noBtn.style.zIndex = '50'
 }
+
+// رسائل صغيرة
+function showTeaseMessage(msg) {
+    let toast = document.getElementById('tease-toast')
+    toast.textContent = msg
+    toast.classList.add('show')
+    clearTimeout(toast._timer)
+    toast._timer = setTimeout(() => toast.classList.remove('show'), 2500)
+        }
