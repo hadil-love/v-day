@@ -18,54 +18,27 @@ const noMessages = [
     "من فضلك؟ 💔",
     "لا تفعل هذا بي…",
     "آخر فرصة 😭",
-    "لن تمسك بي بسهولة 🌚"
+    "لن تهرب مني 🌚"
 ]
 
 const yesTeasePokes = [
-    "جرّب تضغط لا أولًا… 😏",
-    "هيا اضغط لا مرة 👀",
-    "أنت تفوّت الكثير 😈",
+    "جرّب تضغط لا أولًا 😏",
+    "هيا اضغط لا 👀",
+    "أنت تريد التجربة 😈",
     "اضغط لا… أتحداك 😏"
 ]
 
 let yesTeasedCount = 0
 let noClickCount = 0
 let runawayEnabled = false
-let musicPlaying = true
 
 const catGif = document.getElementById('cat-gif')
 const yesBtn = document.getElementById('yes-btn')
 const noBtn = document.getElementById('no-btn')
-const music = document.getElementById('bg-music')
 
-// تشغيل الموسيقى
-music.muted = true
-music.volume = 0.3
-music.play().then(() => {
-    music.muted = false
-}).catch(() => {
-    document.addEventListener('click', () => {
-        music.muted = false
-        music.play().catch(() => {})
-    }, { once: true })
-})
-
-// زر الموسيقى
-function toggleMusic() {
-    if (musicPlaying) {
-        music.pause()
-        musicPlaying = false
-        document.getElementById('music-toggle').textContent = '🔇'
-    } else {
-        music.muted = false
-        music.play()
-        musicPlaying = true
-        document.getElementById('music-toggle').textContent = '🔊'
-    }
-}
-
-// زر نعم
+// 💛 زر نعم
 function handleYesClick() {
+
     if (!runawayEnabled) {
         const msg = yesTeasePokes[Math.min(yesTeasedCount, yesTeasePokes.length - 1)]
         yesTeasedCount++
@@ -73,15 +46,20 @@ function handleYesClick() {
         return
     }
 
-    document.querySelector("h1").innerText = "كنت أعرف أنك ستقول نعم… 💛"
+    // ✨ النهاية الجديدة باسمك
+    document.querySelector("h1").innerText = "ددوشي كنت عارفة رح تقول نعم 🥹"
+
     yesBtn.style.display = "none"
     noBtn.style.display = "none"
 
-    swapGif("https://media.tenor.com/4FQ2yZ6mQxQAAAAj/cute-cat.gif")
+    catGif.src = "https://media1.tenor.com/m/4FQ2yZ6mQxQAAAAC/cute-cat.gif"
+
+    showTeaseMessage("💛")
 }
 
-// زر لا
+// ❌ زر لا
 function handleNoClick() {
+
     noClickCount++
 
     const msgIndex = Math.min(noClickCount, noMessages.length - 1)
@@ -103,7 +81,7 @@ function handleNoClick() {
     }
 }
 
-// تغيير GIF
+// 🐱 تغيير الصورة
 function swapGif(src) {
     catGif.style.opacity = '0'
     setTimeout(() => {
@@ -112,7 +90,7 @@ function swapGif(src) {
     }, 200)
 }
 
-// هروب زر لا
+// 😂 هروب زر لا
 function enableRunaway() {
     noBtn.addEventListener('mouseover', runAway)
     noBtn.addEventListener('touchstart', runAway, { passive: true })
@@ -126,20 +104,20 @@ function runAway() {
     const maxX = window.innerWidth - btnW - margin
     const maxY = window.innerHeight - btnH - margin
 
-    const randomX = Math.random() * maxX + margin / 2
-    const randomY = Math.random() * maxY + margin / 2
+    const x = Math.random() * maxX
+    const y = Math.random() * maxY
 
     noBtn.style.position = 'fixed'
-    noBtn.style.left = `${randomX}px`
-    noBtn.style.top = `${randomY}px`
-    noBtn.style.zIndex = '50'
+    noBtn.style.left = `${x}px`
+    noBtn.style.top = `${y}px`
+    noBtn.style.zIndex = '999'
 }
 
-// رسائل صغيرة
+// 💬 رسائل صغيرة
 function showTeaseMessage(msg) {
     let toast = document.getElementById('tease-toast')
     toast.textContent = msg
     toast.classList.add('show')
     clearTimeout(toast._timer)
     toast._timer = setTimeout(() => toast.classList.remove('show'), 2500)
-        }
+}
