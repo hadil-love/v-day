@@ -17,15 +17,15 @@
 
 <div class="container">
 
-    <h1>هل أنا احد الأسباب البسيطة التي تجعل يومك أخف؟ 💕</h1>
+    <h1>هل أنا أحد الأسباب البسيطة التي تجعل يومك أخف؟ 💕</h1>
 
     <div class="gif-container">
         <img id="cat-gif" src="https://media.tenor.com/EBV7OT7ACfwAAAAj/u-u-qua-qua-u-quaa.gif">
     </div>
 
     <div class="buttons">
-        <button id="yes-btn">نعم</button>
-        <button id="no-btn">لا</button>
+        <button id="yes-btn" onclick="handleYesClick()">نعم</button>
+        <button id="no-btn" onclick="handleNoClick()">لا</button>
     </div>
 
     <div id="tease-toast"></div>
@@ -36,7 +36,7 @@
     <source src="music/beabadoobee - Glue Song (Lyrics).mp3" type="audio/mpeg">
 </audio>
 
-<button id="music-toggle">🔊</button>
+<button id="music-toggle" onclick="toggleMusic()">🔊</button>
 
 <script src="script.js"></script>
 
